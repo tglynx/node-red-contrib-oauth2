@@ -153,9 +153,7 @@
         redirect_uri: { value: '/oauth2/redirect_uri' },
         open_authentication: { value: '' },
         username: { value: '' },
-        password: { value: '' },
         client_id: { value: '' },
-        client_secret: { value: '' },
         scope: { value: '' },
         resource: { value: ''},
         proxy: {
@@ -167,6 +165,10 @@
         client_credentials_in_body: { value: false },
         rejectUnauthorized: { value: true },
         headers: { value: {} }
+      },
+      credentials: {
+        password: { value: '', type: 'password'  },
+        client_secret: { value: '', type: 'password' }
       },
       inputs: 1,
       outputs: 1,
