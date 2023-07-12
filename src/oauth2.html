@@ -19,6 +19,11 @@
       <option value="set_by_credentials" data-i18n="oauth2.opts.set_by_credentials"></option>
     </select>
   </div>
+  <!-- node-input-credentials_config -->
+    <div class="form-row">
+      <label for="node-input-credentials_config"><i class="fa fa-ellipsis-h"></i> <span data-i18n="oauth2.label.container"></span></label>
+      <input id="node-input-credentials_config" style="width:70%;" />
+    </div>
   <!-- node-access_token_url -->
   <div class="form-row" id="node-access_token_url">
     <label for="node-input-access_token_url"><i class="fa fa-link fa-fw"></i> <span data-i18n="oauth2.label.access_token_url"></span></label>
@@ -148,6 +153,7 @@
         },
         container: { value: 'oauth2Response' },
         grant_type: { value: 'set_by_credentials' },
+        credentials_config: {value: '', type:"oauth2Credentials"},
         access_token_url: { value: '' },
         authorization_endpoint: { value: '' },
         redirect_uri: { value: '/oauth2/redirect_uri' },
@@ -473,3 +479,5 @@
     });
   })();
 </script>
+
+

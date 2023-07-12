@@ -406,3 +406,4 @@ module.exports = function (RED) {
   });
   RED.nodes.registerType('oauth2', OAuth2Node);
 };
+
