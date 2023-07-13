@@ -126,7 +126,7 @@ module.exports = function (RED) {
             method: 'POST',
             url: node.access_token_url,
             headers: {
-              Authorization: 'Basic ' + Buffer.from(`${node.client_id}:${node.client_secret}`).toString('base64'),
+              Authorization: 'Basic ' + Buffer.from(`${node.client_id}:${node.credentials.client_secret}`).toString('base64'),
               'Content-Type': 'application/x-www-form-urlencoded',
               Accept: 'application/json'
             },
@@ -139,13 +139,13 @@ module.exports = function (RED) {
           };
           if (node.grant_type === 'password') {
             options.form.username = node.username;
-            options.form.password = node.password;
+            options.form.password = node.credentials.password;
           }
           if (node.grant_type === 'authorization_code') {
             // Some services accept these via Authorization while other require it in the POST body
             if (node.client_credentials_in_body) {
               options.form.client_id = node.client_id;
-              options.form.client_secret = node.client_secret;
+              options.form.client_secret = node.credentials.client_secret;
             }
 
             const credentials = RED.nodes.getCredentials(node.id);
@@ -404,6 +404,11 @@ module.exports = function (RED) {
       return res.status(401).send('oauth2.error.token-mismatch');
     }
   });
-  RED.nodes.registerType('oauth2', OAuth2Node);
+  RED.nodes.registerType('oauth2', OAuth2Node, {
+    credentials: {
+        password: {type:"password"},
+        client_secret: {type:"password"}
+    }
+});
 };
 
