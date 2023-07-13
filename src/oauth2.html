@@ -17,11 +17,12 @@
       <option value="password" data-i18n="oauth2.opts.password_credentials"></option>
       <option value="authorization_code" data-i18n="oauth2.opts.authorization_code"></option>
       <option value="set_by_credentials" data-i18n="oauth2.opts.set_by_credentials"></option>
+      <option value="set_by_config_node" data-i18n="oauth2.opts.set_by_config_node"></option>
     </select>
   </div>
   <!-- node-input-credentials_config -->
-    <div class="form-row">
-      <label for="node-input-credentials_config"><i class="fa fa-ellipsis-h"></i> <span data-i18n="oauth2.label.container"></span></label>
+    <div class="form-row" id="node-credentials_config"> 
+      <label for="node-input-credentials_config"><i class="fa fa-lock"></i> <span data-i18n="oauth2.label.credentials_config"></span></label>
       <input id="node-input-credentials_config" style="width:70%;" />
     </div>
   <!-- node-access_token_url -->
@@ -153,7 +154,7 @@
         },
         container: { value: 'oauth2Response' },
         grant_type: { value: 'set_by_credentials' },
-        credentials_config: {value: '', type:"oauth2Credentials"},
+        credentials_config: {value: '', type:"oauth2Credentials", required: false},
         access_token_url: { value: '' },
         authorization_endpoint: { value: '' },
         redirect_uri: { value: '/oauth2/redirect_uri' },
@@ -218,6 +219,7 @@
 
         $('#node-input-grant_type').on('change', function () {
           if ($('#node-input-grant_type').val() === 'set_by_credentials') {
+            $('#node-credentials_config').hide();
             $('#node-authorization_endpoint').hide();
             $('#node-open_authentication').hide();
             $('#node-redirect_uri').hide();
@@ -230,6 +232,7 @@
             $('#node-rejectUnauthorized').show();
             $('#node-client_credentials_in_body').show();
           } else if ($('#node-input-grant_type').val() === 'client_credentials') {
+            $('#node-credentials_config').hide();
             $('#node-authorization_endpoint').hide();
             $('#node-open_authentication').hide();
             $('#node-redirect_uri').hide();
@@ -242,6 +245,7 @@
             $('#node-rejectUnauthorized').show();
             $('#node-client_credentials_in_body').show();
           } else if ($('#node-input-grant_type').val() === 'password') {
+            $('#node-credentials_config').hide();
             $('#node-authorization_endpoint').hide();
             $('#node-open_authentication').hide();
             $('#node-redirect_uri').hide();
@@ -254,6 +258,7 @@
             $('#node-rejectUnauthorized').show();
             $('#node-client_credentials_in_body').show();
           } else if ($('#node-input-grant_type').val() === 'authorization_code') {
+            $('#node-credentials_config').hide();
             $('#node-password_credentials').hide();
             $('#node-open_authentication').show();
             $('#node-redirect_uri').show();
@@ -263,6 +268,19 @@
             $('#node-client_secret').show();
             $('#node-scope').show();
             $('#node-resource').show();
+            $('#node-rejectUnauthorized').show();
+            $('#node-client_credentials_in_body').show();
+          } else if ($('#node-input-grant_type').val() === 'set_by_config_node') {
+            $('#node-credentials_config').show();
+            $('#node-authorization_endpoint').hide();
+            $('#node-open_authentication').hide();
+            $('#node-redirect_uri').hide();
+            $('#node-password_credentials').hide();
+            $('#node-access_token_url').hide();
+            $('#node-client_id').hide();
+            $('#node-client_secret').hide();
+            $('#node-scope').hide();
+            $('#node-resource').hide();
             $('#node-rejectUnauthorized').show();
             $('#node-client_credentials_in_body').show();
           }
